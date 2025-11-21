@@ -6,6 +6,8 @@ import WatchPage from "./components/WatchPage";
 import NewsPage from "./components/NewsPage";
 import MenuPage from "./components/MenuPage";
 import ChessCanvas from "./components/chess"; 
+import Register from "./components/Register";
+import Login from "./components/Login";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/watch" element={<WatchPage />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/chess" element={<ChessCanvas />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
