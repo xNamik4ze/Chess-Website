@@ -7,11 +7,9 @@ type MovePair = [number, number];
 type MoveHistoryItem = { notation: string; color: string };
 
 const ChessCanvas: React.FC = () => {
-  // --- Refs (declare hooks at top-level of component)
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
 
-  // Game state refs (we use refs to avoid re-renders; UI elements are updated manually)
   const boardRef = useRef<string[][]>([
     ["br", "bn", "bb", "bq", "bk", "bb", "bn", "br"],
     ["bp", "bp", "bp", "bp", "bp", "bp", "bp", "bp"],
@@ -52,7 +50,6 @@ const ChessCanvas: React.FC = () => {
   const moveSoundRef = useRef<HTMLAudioElement | null>(null);
   const captureSoundRef = useRef<HTMLAudioElement | null>(null);
 
-  // constants (kept here for use in functions inside useEffect)
   const SQUARE_SIZE = 67.5;
   const DIMENSION = 8;
   const LEFT_MARGIN = 20;
@@ -62,7 +59,6 @@ const ChessCanvas: React.FC = () => {
   const BEIGE = "#f0d9b5";
   const BROWN = "#b58863";
 
-  // Helper to get current refs more ergonomically
   const getBoard = () => boardRef.current;
   const getSelected = () => selectedRef.current;
   const getValidMoves = () => validMovesRef.current;
@@ -74,7 +70,6 @@ const ChessCanvas: React.FC = () => {
   const isGameOver = () => gameOverRef.current;
 
   useEffect(() => {
-    // --- Setup canvas and assets
     const canvas = canvasRef.current!;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -113,7 +108,7 @@ const ChessCanvas: React.FC = () => {
       });
     }
 
-    // ---------- Drawing ----------
+    //Draw board
     function drawBoard() {
       const ctx = ctxRef.current!;
       const canvas = canvasRef.current!;
@@ -248,7 +243,7 @@ const ChessCanvas: React.FC = () => {
       return `<img src="${imgSrc}" alt="${piece}" width="20" style="vertical-align:middle;" /> ${square}`;
     }
 
-    // ---------- Game logic ----------
+    //Game logic
     function getSquare(x: number, y: number): MovePair {
       return [
         Math.floor((y - BOARD_TOP) / SQUARE_SIZE),
@@ -390,7 +385,7 @@ const ChessCanvas: React.FC = () => {
       });
       updateMoveHistory();
 
-      // castling handling
+      // Castling handling
       if (piece === "wk") {
         movedRef.current.wk = true;
         if (toRow === 7 && toCol === 6) {
