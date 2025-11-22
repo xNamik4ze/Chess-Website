@@ -12,7 +12,7 @@ const LearnPage: React.FC = () => {
       {/* Main Content */}
       <div style={{ marginLeft: 70, padding: "20px" }}>
         <section id="introduction" style={{ maxWidth: 800, margin: "20px auto", background: "whitesmoke", padding: 20, borderRadius: 8, boxShadow: "0 0 10px rgba(0,0,0,0.1)" }}>
-          <h1 style={{ color: "#1d1d1d" }}>Hướng Dẫn Chơi Cờ Vua</h1>
+          <h1 style={{ color: "#1d1d1d" }}>Hướng dẫn chơi cờ vua</h1>
           <p>Cờ vua là một trò chơi chiến lược được chơi trên bàn cờ 8x8, gồm 64 ô vuông xen kẽ màu sáng và tối. Mỗi người chơi bắt đầu với 16 quân cờ: 1 Vua, 1 Hậu, 2 Xe, 2 Mã, 2 Tượng, và 8 Tốt. Mục tiêu của trò chơi là chiếu hết (checkmate) vua của đối phương, tức là đặt vua vào tình thế bị đe dọa bắt mà không thể thoát.</p>
           <p>Trò chơi có thể kết thúc trong các trường hợp sau:</p>
           <ul>
