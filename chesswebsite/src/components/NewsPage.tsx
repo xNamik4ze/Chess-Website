@@ -39,7 +39,7 @@ const NewsPage: React.FC = () => {
        </div>
 
        {/* Other news grid */}
-      <div className="container">
+      <div className="news-grid">
         <div className="thumbnail">
           <a href="https://www.chess.com/news/view/international-chess-day-portals-celebration" target="_blank" rel="noopener noreferrer">
             <div className="frame">
