@@ -8,24 +8,24 @@ type MovePair = [number, number];
 type MoveHistoryItem = { notation: string; color: string };
 
 const ChessCanvas: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+const canvasRef = useRef<HTMLCanvasElement | null>(null);
+const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
 
-  const boardRef = useRef<string[][]>([
-    ["br", "bn", "bb", "bq", "bk", "bb", "bn", "br"],
-    ["bp", "bp", "bp", "bp", "bp", "bp", "bp", "bp"],
-    ["__", "__", "__", "__", "__", "__", "__", "__"],
-    ["__", "__", "__", "__", "__", "__", "__", "__"],
-    ["__", "__", "__", "__", "__", "__", "__", "__"],
-    ["__", "__", "__", "__", "__", "__", "__", "__"],
-    ["wp", "wp", "wp", "wp", "wp", "wp", "wp", "wp"],
-    ["wr", "wn", "wb", "wq", "wk", "wb", "wn", "wr"]
-  ]);
-  const selectedRef = useRef<MovePair | null>(null);
-  const validMovesRef = useRef<MovePair[]>([]);
-  const moveHistoryRef = useRef<MoveHistoryItem[]>([]);
-  const whiteLostRef = useRef<string[]>([]);
-  const blackLostRef = useRef<string[]>([]);
+const boardRef = useRef<string[][]>([
+  ["br", "bn", "bb", "bq", "bk", "bb", "bn", "br"],
+  ["bp", "bp", "bp", "bp", "bp", "bp", "bp", "bp"],
+  ["__", "__", "__", "__", "__", "__", "__", "__"],
+  ["__", "__", "__", "__", "__", "__", "__", "__"],
+  ["__", "__", "__", "__", "__", "__", "__", "__"],
+  ["__", "__", "__", "__", "__", "__", "__", "__"],
+  ["wp", "wp", "wp", "wp", "wp", "wp", "wp", "wp"],
+  ["wr", "wn", "wb", "wq", "wk", "wb", "wn", "wr"]
+]);
+const selectedRef = useRef<MovePair | null>(null);
+const validMovesRef = useRef<MovePair[]>([]);
+const moveHistoryRef = useRef<MoveHistoryItem[]>([]);
+const whiteLostRef = useRef<string[]>([]);
+const blackLostRef = useRef<string[]>([]);
 
   const turnRef = useRef<"w" | "b">("w");
   const gameOverRef = useRef<boolean>(false);
@@ -441,28 +441,253 @@ const ChessCanvas: React.FC = () => {
       }
     }
 
-    // AI
-    function makeAIMove() {
-      const allMoves: { from: MovePair; to: MovePair }[] = [];
-      const board = getBoard();
 
-      for (let r = 0; r < 8; r++) {
-        for (let c = 0; c < 8; c++) {
-          const piece = board[r][c];
-          if (piece !== "__" && piece[0] === "b") {
-            const moves = getMoves(piece, r, c);
-            for (const m of moves) allMoves.push({ from: [r, c], to: m });
-          }
-        }
-      }
+const PIECE_VALUE: Record<string, number> = { p: 100, n: 320, b: 330, r: 500, q: 900, k: 20000 };
 
-      if (allMoves.length === 0) return;
-      const move = allMoves[Math.floor(Math.random() * allMoves.length)];
-      const [fromRow, fromCol] = move.from;
-      const [toRow, toCol] = move.to;
-      movePiece(fromRow, fromCol, toRow, toCol);
+const PST_PAWN = [
+  [ 0,  5,  5,  0,  5, 10, 50,  0],
+  [ 0, 10, -5,  0,  5, 10, 10,  0],
+  [ 0, 10, -10,  0, 10, 20, 10,  0],
+  [ 0,  0,   0, 20, 25, 30, 15,  0],
+  [ 0,  5,  10, 25, 25, 10,  5,  0],
+  [ 0,  5,  5,  20, 15,  5,  5,  0],
+  [ 0, 10, 10, -20, -10, 10, 10,  0],
+  [ 0,  0,   0,   0,   0,  0,  0,  0]
+];
+
+const PST_KNIGHT = [
+  [-50,-40,-30,-30,-30,-30,-40,-50],
+  [-40,-20,  0,  5,  5,  0,-20,-40],
+  [-30,  5, 10, 15, 15, 10,  5,-30],
+  [-30,  0, 15, 20, 20, 15,  0,-30],
+  [-30,  5, 15, 20, 20, 15,  5,-30],
+  [-30,  0, 10, 15, 15, 10,  0,-30],
+  [-40,-20,  0,  0,  0,  0,-20,-40],
+  [-50,-40,-30,-30,-30,-30,-40,-50]
+];
+
+const PST_BISHOP = PST_KNIGHT;
+
+const PST_ROOK = [
+  [ 0, 0, 0, 5, 5, 0, 0, 0],
+  [ 0, 0, 0,10,10, 0, 0, 0],
+  [ 0, 0, 0,10,10, 0, 0, 0],
+  [ 0, 0, 0,10,10, 0, 0, 0],
+  [ 0, 0, 0,10,10, 0, 0, 0],
+  [ 0, 0, 0,10,10, 0, 0, 0],
+  [25,25,25,25,25,25,25,25],
+  [ 0, 0, 0, 0, 0, 0, 0, 0]
+];
+const PST_QUEEN = PST_ROOK;
+
+const PST_KING = [
+  [-30,-40,-40,-50,-50,-40,-40,-30],
+  [-30,-40,-40,-50,-50,-40,-40,-30],
+  [-30,-40,-40,-50,-50,-40,-40,-30],
+  [-30,-40,-40,-50,-50,-40,-40,-30],
+  [-20,-30,-30,-40,-40,-30,-30,-20],
+  [-10,-20,-20,-20,-20,-20,-20,-10],
+  [ 20, 20,  0,  0,  0,  0, 20, 20],
+  [ 20, 30, 10,  0,  0, 10, 30, 20]
+];
+
+function pstValue(pieceChar: string, row: number, col: number, color: string) {
+  const r = color === 'w' ? row : 7 - row;
+  const c = col;
+  switch (pieceChar) {
+    case 'p': return PST_PAWN[r][c] ?? 0; // pawn PST here uses first column approx
+    case 'n': return PST_KNIGHT[r][c] ?? 0;
+    case 'b': return PST_BISHOP[r][c] ?? 0;
+    case 'r': return PST_ROOK[r][c] ?? 0;
+    case 'q': return PST_QUEEN[r][c] ?? 0;
+    case 'k': return PST_KING[r][c] ?? 0;
+    default: return 0;
+  }
+}
+
+function evaluateBoard(board: string[][]) {
+  let score = 0;
+  let mobilityWhite = 0, mobilityBlack = 0;
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      const p = board[r][c];
+      if (p === "__") continue;
+      const color = p[0];
+      const piece = p[1];
+      const val = PIECE_VALUE[piece] ?? 0;
+      const pst = pstValue(piece, r, c, color);
+      if (color === 'w') score += val + pst;
+      else score -= val + pst;
     }
+  }
 
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      const p = board[r][c];
+      if (p === "__") continue;
+      const moves = getMoves(p, r, c);
+      if (p[0] === 'w') mobilityWhite += moves.length;
+      else mobilityBlack += moves.length;
+    }
+  }
+  score += 5 * (mobilityWhite - mobilityBlack);
+  return score;
+}
+
+const snapshotStack: any[] = [];
+function cloneBoard(b: string[][]) {
+  return b.map(row => row.slice());
+}
+
+function pushSnapshot() {
+  snapshotStack.push({
+    board: cloneBoard(boardRef.current),
+    moved: { ...movedRef.current },
+    turn: turnRef.current,
+    whiteLost: boardRef.current ? getWhiteLost().slice() : [],
+    blackLost: boardRef.current ? getBlackLost().slice() : []
+  });
+}
+
+function popSnapshot() {
+  const s = snapshotStack.pop();
+  if (!s) return;
+  boardRef.current = s.board;
+  movedRef.current = s.moved;
+  turnRef.current = s.turn;
+  whiteLostRef.current = s.whiteLost;
+  blackLostRef.current = s.blackLost;
+}
+
+    // apply a move silently on boardRef.current (no sounds, no UI, auto-queen promotion)
+function applyMoveSilent(fromRow: number, fromCol: number, toRow: number, toCol: number) {
+  const board = boardRef.current;
+  const piece = board[fromRow][fromCol];
+  const captured = board[toRow][toCol];
+
+  if (piece === "wk") {
+    movedRef.current.wk = true;
+    if (toRow === 7 && toCol === 6) {
+      board[7][5] = board[7][7];
+      board[7][7] = "__";
+      movedRef.current.wr2 = true;
+    } else if (toRow === 7 && toCol === 2) {
+      board[7][3] = board[7][0];
+      board[7][0] = "__";
+      movedRef.current.wr1 = true;
+    }
+  }
+    if (piece === "bk") {
+    movedRef.current.bk = true;
+    if (toRow === 0 && toCol === 6) {
+      board[0][5] = board[0][7];
+      board[0][7] = "__";
+      movedRef.current.br2 = true;
+    } else if (toRow === 0 && toCol === 2) {
+      board[0][3] = board[0][0];
+      board[0][0] = "__";
+      movedRef.current.br1 = true;
+    }
+  }
+  if (piece === "wr" && fromCol === 0) movedRef.current.wr1 = true;
+  if (piece === "wr" && fromCol === 7) movedRef.current.wr2 = true;
+  if (piece === "br" && fromCol === 0) movedRef.current.br1 = true;
+  if (piece === "br" && fromCol === 7) movedRef.current.br2 = true;
+
+  board[fromRow][fromCol] = "__";
+  if ((piece === "wp" && toRow === 0) || (piece === "bp" && toRow === 7)) {
+    board[toRow][toCol] = piece[0] + 'q';
+  } else {
+    board[toRow][toCol] = piece;
+  }
+
+  if (captured !== "__") {
+    if (captured[0] === 'w') whiteLostRef.current.push(captured);
+    else blackLostRef.current.push(captured);
+  }
+
+  turnRef.current = turnRef.current === 'w' ? 'b' : 'w';
+}
+
+function negamax(depth: number, alpha: number, beta: number): number {
+  if (depth === 0) {
+    return evaluateBoard(boardRef.current) * (turnRef.current === 'w' ? 1 : -1);
+  }
+
+  const moves: { from: MovePair; to: MovePair; isCapture: boolean }[] = [];
+  const board = boardRef.current;
+  const side = turnRef.current;
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      const p = board[r][c];
+      if (p === "__" || p[0] !== side) continue;
+      const ms = getMoves(p, r, c);
+      for (const m of ms) {
+        const isCapture = board[m[0]][m[1]] !== "__";
+        moves.push({ from: [r, c], to: [m[0], m[1]], isCapture });
+      }
+    }
+  }
+
+  if (moves.length === 0) {
+    return evaluateBoard(board) * (side === 'w' ? 1 : -1);
+  }
+
+  moves.sort((a, b) => Number(b.isCapture) - Number(a.isCapture));
+
+  let value = -Infinity;
+  for (const mv of moves) {
+    pushSnapshot();
+    applyMoveSilent(mv.from[0], mv.from[1], mv.to[0], mv.to[1]);
+    const score = -negamax(depth - 1, -beta, -alpha);
+    popSnapshot();
+
+    if (score > value) value = score;
+    if (score > alpha) alpha = score;
+    if (alpha >= beta) break;
+  }
+  return value;
+}
+
+function makeAIMove() {
+  const SEARCH_DEPTH = 5;
+  const allMoves: { from: MovePair; to: MovePair }[] = [];
+  const board = getBoard();
+
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      const piece = board[r][c];
+      if (piece !== "__" && piece[0] === "b") {
+        const moves = getMoves(piece, r, c);
+        for (const m of moves) allMoves.push({ from: [r, c], to: m });
+      }
+    }
+  }
+
+  if (allMoves.length === 0) return;
+
+  let bestScore = -Infinity;
+  let bestMove = allMoves[Math.floor(Math.random() * allMoves.length)];
+
+  for (const candidate of allMoves) {
+    pushSnapshot();
+    applyMoveSilent(candidate.from[0], candidate.from[1], candidate.to[0], candidate.to[1]);
+    const score = -negamax(SEARCH_DEPTH - 1, -999999, 999999);
+    popSnapshot();
+
+    const adjusted = score + (Math.random() * 8 - 4);
+
+    if (adjusted > bestScore) {
+      bestScore = adjusted;
+      bestMove = candidate;
+    }
+  }
+
+  const [fr, fc] = bestMove.from;
+  const [tr, tc] = bestMove.to;
+  movePiece(fr, fc, tr, tc);
+}
+    
     // Timer
     function startTimer() {
       if (timerIntervalRef.current) window.clearInterval(timerIntervalRef.current);
