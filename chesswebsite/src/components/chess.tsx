@@ -445,14 +445,14 @@ const blackLostRef = useRef<string[]>([]);
 const PIECE_VALUE: Record<string, number> = { p: 100, n: 320, b: 330, r: 500, q: 900, k: 20000 };
 
 const PST_PAWN = [
-  [ 0,  5,  5,  0,  5, 10, 50,  0],
-  [ 0, 10, -5,  0,  5, 10, 10,  0],
-  [ 0, 10, -10,  0, 10, 20, 10,  0],
-  [ 0,  0,   0, 20, 25, 30, 15,  0],
-  [ 0,  5,  10, 25, 25, 10,  5,  0],
-  [ 0,  5,  5,  20, 15,  5,  5,  0],
-  [ 0, 10, 10, -20, -10, 10, 10,  0],
-  [ 0,  0,   0,   0,   0,  0,  0,  0]
+  [ 0, 0,  0, 0, 0,  0, 0, 0],
+  [10,10, 10,10,10, 10,10,10],
+  [ 5, 5, 10,15,15, 10, 5, 5],
+  [ 0, 0,  0,20,20,  0, 0, 0],
+  [ 5,-5,-10,25,25,-10,-5, 5],
+  [ 5,10, 10,20,20, 10,10, 5],
+  [50,50, 50,50,50, 50,50,50],
+  [ 0, 0,  0, 0, 0,  0, 0, 0]
 ];
 
 const PST_KNIGHT = [
@@ -492,7 +492,7 @@ const PST_KING = [
 ];
 
 function pstValue(pieceChar: string, row: number, col: number, color: string) {
-  const r = color === 'w' ? row : 7 - row;
+  const r = color === 'b' ? row : 7 - row;
   const c = col;
   switch (pieceChar) {
     case 'p': return PST_PAWN[r][c] ?? 0; // pawn PST here uses first column approx
@@ -559,7 +559,7 @@ function popSnapshot() {
   blackLostRef.current = s.blackLost;
 }
 
-    // apply a move silently on boardRef.current (no sounds, no UI, auto-queen promotion)
+// apply a move silently on boardRef.current (no sounds, no UI, auto-queen promotion)
 function applyMoveSilent(fromRow: number, fromCol: number, toRow: number, toCol: number) {
   const board = boardRef.current;
   const piece = board[fromRow][fromCol];
