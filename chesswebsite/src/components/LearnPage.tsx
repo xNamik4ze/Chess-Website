@@ -1,101 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../styles/LearnPage.css";
+import Sidebar from "./Sidebar";
 
 const LearnPage: React.FC = () => {
   return (
-    <div
-      style={{
-        fontFamily: "Arial, sans-serif",
-        margin: 0,
-        background: "linear-gradient(135deg, #1e1e2f, #2c3e50)",
-        backgroundImage: "url('/images/chess-bg.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "100vh",
-        color: "#2c3e50",
-      }}
-    >
+    <div className="learn-page">
       {/* Sidebar */}
-      <nav
-        className="sidebar"
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "50px",
-          height: "100vh",
-          backgroundColor: "#32ef4bdf",
-          color: "#ffffff",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "start",
-          padding: "15px",
-          boxShadow: "2px 0 10px rgba(0,0,0,0.3)",
-          borderRadius: "0 10px 10px 0",
-          transition: "width 0.3s ease",
-          overflowX: "hidden",
-          zIndex: 1000,
-        }}
-      >
-        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-          <div
-            className="logo"
-            style={{
-              fontSize: 0,
-              fontWeight: "bold",
-              marginBottom: "20px",
-              whiteSpace: "nowrap",
-              transition: "font-size 0.3s ease, opacity 0.3s ease",
-              opacity: 0,
-            }}
-          >
-            CHESSENA
-          </div>
-        </Link>
-        <ul className="nav-links" style={{ listStyle: "none", padding: 0, width: "100%" }}>
-          <li>
-            <Link to="/chess" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "inherit" }}>
-              <span className="icon" style={{ fontSize: 28, marginRight: 10 }}>🎮</span>
-              <span className="text" style={{ opacity: 0, visibility: "hidden", transition: "opacity 0.3s ease" }}>Play</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/puzzle" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "inherit" }}>
-              <span className="icon" style={{ fontSize: 28, marginRight: 10 }}>🧩</span>
-              <span className="text" style={{ opacity: 0, visibility: "hidden", transition: "opacity 0.3s ease" }}>Puzzles</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/learn" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "inherit" }}>
-              <span className="icon" style={{ fontSize: 28, marginRight: 10 }}>📚</span>
-              <span className="text" style={{ opacity: 0, visibility: "hidden", transition: "opacity 0.3s ease" }}>Learn</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/watch" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "inherit" }}>
-              <span className="icon" style={{ fontSize: 28, marginRight: 10 }}>🎥</span>
-              <span className="text" style={{ opacity: 0, visibility: "hidden", transition: "opacity 0.3s ease" }}>Watch</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/news" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "inherit" }}>
-              <span className="icon" style={{ fontSize: 28, marginRight: 10 }}>📰</span>
-              <span className="text" style={{ opacity: 0, visibility: "hidden", transition: "opacity 0.3s ease" }}>News</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/social" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "inherit" }}>
-              <span className="icon" style={{ fontSize: 28, marginRight: 10 }}>👥</span>
-              <span className="text" style={{ opacity: 0, visibility: "hidden", transition: "opacity 0.3s ease" }}>Social</span>
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      <Sidebar />
 
       {/* Main Content */}
       <div style={{ marginLeft: 70, padding: "20px" }}>
         <section id="introduction" style={{ maxWidth: 800, margin: "20px auto", background: "whitesmoke", padding: 20, borderRadius: 8, boxShadow: "0 0 10px rgba(0,0,0,0.1)" }}>
-          <h1>Hướng Dẫn Chơi Cờ Vua</h1>
+          <h1 style={{ color: "#1d1d1d" }}>Hướng dẫn chơi cờ vua</h1>
           <p>Cờ vua là một trò chơi chiến lược được chơi trên bàn cờ 8x8, gồm 64 ô vuông xen kẽ màu sáng và tối. Mỗi người chơi bắt đầu với 16 quân cờ: 1 Vua, 1 Hậu, 2 Xe, 2 Mã, 2 Tượng, và 8 Tốt. Mục tiêu của trò chơi là chiếu hết (checkmate) vua của đối phương, tức là đặt vua vào tình thế bị đe dọa bắt mà không thể thoát.</p>
           <p>Trò chơi có thể kết thúc trong các trường hợp sau:</p>
           <ul>
@@ -124,7 +41,6 @@ const LearnPage: React.FC = () => {
             <img src="/images/hau.jpg" alt="Cách di chuyển của Hậu" style={{ maxWidth: 300, display: "block", margin: "10px auto" }} />
           </div>
 
-          {/* Thêm Xe, Tượng, Mã, Tốt tương tự */}
           <div className="piece-section" style={{ marginBottom: 30 }}>
             <h3>Xe (Rook)</h3>
             <p><strong>Di chuyển:</strong> Xe di chuyển bất kỳ số ô nào theo hướng ngang hoặc dọc, miễn là không bị cản bởi quân khác.</p>
@@ -143,7 +59,7 @@ const LearnPage: React.FC = () => {
             <h3>Mã (Knight)</h3>
             <p><strong>Di chuyển:</strong> Mã di chuyển theo hình chữ "L": hai ô theo một hướng (ngang hoặc dọc) và một ô vuông góc, hoặc một ô theo một hướng và hai ô vuông góc. Mã là quân cờ duy nhất có thể "nhảy" qua các quân khác.</p>
             <p><strong>Bắt quân:</strong> Mã bắt quân đối phương bằng cách di chuyển vào ô chứa quân đó.</p>
-            <img src="/images/Ma.gif" alt="Cách di chuyển của Mã" style={{ maxWidth: 300, display: "block", margin: "10px auto" }} />
+            <img src="/images/Ma.jpg" alt="Cách di chuyển của Mã" style={{ maxWidth: 300, display: "block", margin: "10px auto" }} />
           </div>
 
           <div className="piece-section" style={{ marginBottom: 30 }}>

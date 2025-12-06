@@ -1,0 +1,124 @@
+/* ===== Body ===== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #d9d7d2;
+    color: #333;
+    background-image: url("../assets/images/chess-bg.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+/* ===== Container ===== */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ===== Main Title ===== */
+.main-thumbnail {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.main-thumbnail .frame {
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    margin: 0 auto;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.main-thumbnail .frame:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+.main-thumbnail h1 {
+    font-size: 3rem;
+    color: #1d1d1d;
+    margin: 0;
+}
+
+/* ===== News Blocks ===== */
+.thumbnail {
+    margin-bottom: 30px;
+}
+
+.thumbnail .frame {
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.thumbnail .frame:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.thumbnail img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.thumbnail .title {
+    font-size: 20px;
+    margin: 10px 0;
+    color: #2c3e50;
+}
+
+.thumbnail .author {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.thumbnail .summary {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #555;
+    text-align: justify;
+}
+
+/* ===== More News ===== */
+.more-news {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.more-news .frame {
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    padding: 20px;
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    margin: 0 auto;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.more-news .frame:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+.more-news .title {
+    font-size: 28px;
+    color: #2c3e50;
+    text-decoration: none;
+}
+
+/* ===== Links ===== */
+a {
+    text-decoration: none;
+    color: inherit;
+}

@@ -1,29 +1,41 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import UserInfoBar from "../components/UserInfoBar";
 
 const Menu: React.FC = () => {
   const navigate = useNavigate();
 
   return (
     <div style={styles.container}>
+
+      {/* HIỂN THỊ THÔNG TIN USER Ở GÓC PHẢI */}
+      <div style={styles.profilePosition}>
+        <UserInfoBar />
+      </div>
+
+      {/* NỘI DUNG CHÍNH */}
       <h1 style={styles.title}>Chọn chế độ chơi</h1>
+
       <div style={styles.buttonContainer}>
         <button
           style={styles.button}
-          onClick={() => navigate("/chess")} // route /chess
+          onClick={() => navigate("/chess")}
         >
           Chơi với Máy hoặc PvP Local
         </button>
+
         <button
           style={styles.button}
-          onClick={() => navigate("/online")} // route /online
+          onClick={() => navigate("/online")}
         >
           Chơi Online
         </button>
       </div>
+
     </div>
   );
 };
+
 
 const styles: { [key: string]: React.CSSProperties } = {
   container: {

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService {  
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -41,7 +41,7 @@ public class UserService {
 
         return userRepository.save(user);
     }
-
+ 
     // -------- LOGIN --------
     public Optional<User> login(String username, String rawPassword) {
 
@@ -57,5 +57,9 @@ public class UserService {
         }
 
         return Optional.empty();
+    }
+
+    public User findByUsername(String username) {
+      return userRepository.findByUsername(username).orElse(null);
     }
 }
