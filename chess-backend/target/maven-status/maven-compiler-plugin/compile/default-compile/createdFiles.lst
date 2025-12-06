@@ -1,7 +1,12 @@
 com\chess\ChessBackendApplication.class
 com\chess\controller\AuthController.class
-com\chess\repository\UserRepository.class
+com\chess\config\CorsConfig.class
+com\chess\controller\UserController.class
+com\chess\security\JwtAuthenticationFilter.class
 com\chess\service\JwtService.class
-com\chess\service\UserService.class
 com\chess\config\SecurityConfig.class
+com\chess\service\CustomUserDetailsService.class
+com\chess\repository\UserRepository.class
+com\chess\service\UserService.class
 com\chess\model\User.class
+com\chess\security\JwtAuthEntryPoint.class

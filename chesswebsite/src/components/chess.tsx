@@ -1038,4 +1038,3 @@ function makeAIMove() {
 };
 
 export default ChessCanvas;
-

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* ===== Biến CSS (Tùy chọn: giúp quản lý màu sắc dễ dàng hơn) ===== */
 :root {
     --primary-color: #2c3e50;
@@ -15,10 +16,19 @@ body {
     margin: 0;
     padding: 0; /* Đảm bảo không có padding toàn trang */
     background-color: var(--background-light);
+=======
+/* ===== Body ===== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #d9d7d2;
+>>>>>>> a31c745cb195ec100b11e7b5167bf34649d0e8e1
     color: #333;
     background-image: url("../assets/images/chess-bg.jpg");
     background-size: cover;
     background-position: center;
+<<<<<<< HEAD
     background-attachment: fixed;
     overflow-x: hidden;
 }
@@ -47,10 +57,24 @@ body {
 
 /* ===== Main Title & News Blocks (Giữ nguyên các quy tắc style) ===== */
 .main-thumbnail {
+=======
+}
+
+/* ===== Container ===== */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ===== Main Title ===== */
+.main-thumbnail {
+    margin-bottom: 40px;
+>>>>>>> a31c745cb195ec100b11e7b5167bf34649d0e8e1
     text-align: center;
 }
 
 .main-thumbnail .frame {
+<<<<<<< HEAD
     border-radius: 18px;
     padding: 30px;
     background: var(--white-transparent);
@@ -82,11 +106,53 @@ body {
 .thumbnail .frame:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+=======
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    margin: 0 auto;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.main-thumbnail .frame:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+.main-thumbnail h1 {
+    font-size: 3rem;
+    color: #1d1d1d;
+    margin: 0;
+}
+
+/* ===== News Blocks ===== */
+.thumbnail {
+    margin-bottom: 30px;
+}
+
+.thumbnail .frame {
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.thumbnail .frame:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+>>>>>>> a31c745cb195ec100b11e7b5167bf34649d0e8e1
 }
 
 .thumbnail img {
     width: 100%;
     height: auto;
+<<<<<<< HEAD
     border-radius: 14px;
     object-fit: cover;
     transition: transform 0.4s ease-out;
@@ -115,10 +181,32 @@ body {
 .thumbnail .summary {
     font-size: 16px;
     line-height: 1.7;
+=======
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.thumbnail .title {
+    font-size: 20px;
+    margin: 10px 0;
+    color: #2c3e50;
+}
+
+.thumbnail .author {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.thumbnail .summary {
+    font-size: 14px;
+    line-height: 1.5;
+>>>>>>> a31c745cb195ec100b11e7b5167bf34649d0e8e1
     color: #555;
     text-align: justify;
 }
 
+<<<<<<< HEAD
 /* ===== More News (Sử dụng màu nhấn) ===== */
 .more-news {
     text-align: center;
@@ -166,4 +254,37 @@ a:hover {
     justify-content: center; /* Căn giữa nội dung theo chiều ngang */
     align-items: center; /* Giữ nội dung sát lên trên */
     flex-direction: column;
+=======
+/* ===== More News ===== */
+.more-news {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.more-news .frame {
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    padding: 20px;
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    margin: 0 auto;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.more-news .frame:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+.more-news .title {
+    font-size: 28px;
+    color: #2c3e50;
+    text-decoration: none;
+}
+
+/* ===== Links ===== */
+a {
+    text-decoration: none;
+    color: inherit;
+>>>>>>> a31c745cb195ec100b11e7b5167bf34649d0e8e1
 }

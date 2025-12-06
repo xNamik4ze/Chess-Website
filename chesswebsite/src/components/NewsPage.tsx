@@ -39,7 +39,11 @@ const NewsPage: React.FC = () => {
        </div>
 
        {/* Other news grid */}
+<<<<<<< HEAD
       <div className="news-grid">
+=======
+      <div className="container">
+>>>>>>> a31c745cb195ec100b11e7b5167bf34649d0e8e1
         <div className="thumbnail">
           <a href="https://www.chess.com/news/view/international-chess-day-portals-celebration" target="_blank" rel="noopener noreferrer">
             <div className="frame">
@@ -145,4 +149,8 @@ const NewsPage: React.FC = () => {
   );
 };
 
+<<<<<<< HEAD
 export default NewsPage;
+=======
+export default NewsPage;
+>>>>>>> a31c745cb195ec100b11e7b5167bf34649d0e8e1

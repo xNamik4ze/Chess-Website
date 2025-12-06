@@ -8,6 +8,8 @@ import MenuPage from "./components/MenuPage";
 import ChessCanvas from "./components/chess"; 
 import Register from "./components/Register";
 import Login from "./components/Login";
+import OnlineGamePage from "./components/OnlineGamePage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -22,6 +24,14 @@ function App() {
         <Route path="/chess" element={<ChessCanvas />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route
+          path="/online"
+          element={
+            <ProtectedRoute>
+              <OnlineGamePage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

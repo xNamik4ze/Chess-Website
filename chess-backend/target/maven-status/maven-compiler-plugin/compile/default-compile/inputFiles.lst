@@ -1,7 +1,12 @@
-D:\Projects\Chess website\chess-backend\src\main\java\com\chess\ChessBackendApplication.java
-D:\Projects\Chess website\chess-backend\src\main\java\com\chess\config\SecurityConfig.java
-D:\Projects\Chess website\chess-backend\src\main\java\com\chess\controller\AuthController.java
-D:\Projects\Chess website\chess-backend\src\main\java\com\chess\model\User.java
-D:\Projects\Chess website\chess-backend\src\main\java\com\chess\repository\UserRepository.java
-D:\Projects\Chess website\chess-backend\src\main\java\com\chess\service\JwtService.java
-D:\Projects\Chess website\chess-backend\src\main\java\com\chess\service\UserService.java
+D:\Projects\Chess-website\chess-backend\src\main\java\com\chess\ChessBackendApplication.java
+D:\Projects\Chess-website\chess-backend\src\main\java\com\chess\config\CorsConfig.java
+D:\Projects\Chess-website\chess-backend\src\main\java\com\chess\config\JwtAuthEntryPoint.java
+D:\Projects\Chess-website\chess-backend\src\main\java\com\chess\config\SecurityConfig.java
+D:\Projects\Chess-website\chess-backend\src\main\java\com\chess\controller\AuthController.java
+D:\Projects\Chess-website\chess-backend\src\main\java\com\chess\controller\UserController.java
+D:\Projects\Chess-website\chess-backend\src\main\java\com\chess\model\User.java
+D:\Projects\Chess-website\chess-backend\src\main\java\com\chess\repository\UserRepository.java
+D:\Projects\Chess-website\chess-backend\src\main\java\com\chess\security\JwtAuthenticationFilter.java
+D:\Projects\Chess-website\chess-backend\src\main\java\com\chess\service\CustomUserDetailsService.java
+D:\Projects\Chess-website\chess-backend\src\main\java\com\chess\service\JwtService.java
+D:\Projects\Chess-website\chess-backend\src\main\java\com\chess\service\UserService.java
